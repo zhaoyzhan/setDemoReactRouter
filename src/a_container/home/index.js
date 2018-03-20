@@ -39,6 +39,9 @@ class HomeTitle extends React.Component {
 	CutNum() {
 		console.log('-');
 	}
+	componentDidMount() {
+		console.log('shouye')
+	}
 	render() {
 		return <div>
 			<h1>home 22 333 title</h1>

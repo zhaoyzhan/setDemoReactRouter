@@ -16,6 +16,10 @@ class RootContainer extends React.Component {
 		this.state = {};
 	}
 
+	componentDidMount() {
+		console.log('daohangye ');
+	}
+
 	render() {
 		return (
 			<div className="fl">
