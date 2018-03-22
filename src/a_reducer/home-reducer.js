@@ -27,14 +27,14 @@ const testCut = (state, action) => {
 const reducerFn = (state = initState, action) => {
 	switch (action.type) {
 		case 'TEST::add':
-			return testAdd(state, action)
-			break;
+			return testAdd(state, action);
+			// break;
 		case 'TEST::cut':
-			return testCut(state, action)
-			break;
+			return testCut(state, action);
+			// break;
 		default:
-			return actDefault(state, action)
-			break;
+			return actDefault(state, action);
+			// break;
 	}
 };
 

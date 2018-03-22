@@ -6,7 +6,7 @@ export const addNum = productNum => ({
 const setTime = productNum => ({
 	type: 'TEST::cut',
 	payload: productNum - 1,
-})
+});
 
 export const cutNum = productNum => dispatch => {
 	setTimeout(() => {

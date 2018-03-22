@@ -11,16 +11,23 @@ import History from '../a_container/history/';
 
 import RootContainer from '../a_container/root/';
 
-const requireAuth = (nextStaten, replace) => {
-	if (!localStorage.onEnter) {
-		console.log('1235')
-		replace({
-			pathname: '/'
-		});
+// const requireAuth = (nextStaten, replace) => {
+// 	if (!localStorage.onEnter) {
+// 		console.log('1235')
+// 		replace({
+// 			pathname: '/'
+// 		});
+// 	}
+// }
+
+// const loginIn = false;
+const isLoginIn = () => {
+	if (localStorage.isLoginIn) {
+		return true;
+	} else {
+		return false;
 	}
 }
-
-const loginIn = false;
 
 const RouterCon = () => (
 	<Router>
@@ -34,11 +41,17 @@ const RouterCon = () => (
 			<Route 
 				path="/car"  
 				render={()=> (
-					loginIn ? <Route component={CarCon}/>
-					        : <Redirect to="/" />
+					isLoginIn() ? <Route component={CarCon}/>
+					        : <Redirect to="/home" />
 				)}
 			/>
-			<Route path="/history" component={History} onEnter={requireAuth}/>
+			<Route
+			    path="/history" 
+			    render={()=> (
+					isLoginIn() ? <Route component={History}/>
+					        : <Redirect to="/home" />
+				)}
+			/>
 		</div>
 	</Router>
 );

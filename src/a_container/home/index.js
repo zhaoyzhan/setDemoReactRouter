@@ -10,6 +10,8 @@ import {
 //本页面所需action
 import * as TodoAction from '../../a_action/home_action';
 
+import '../../css/public.css';
+
 
 // 最终要交给redux管理的所有变量
 const mapStoreStateToProps = (state) => ({
@@ -28,7 +30,7 @@ const mapDispatches = (dispatch) => ({
 		},
 		onTestCut: (v) => {
 			dispatch(TodoAction.cutNum(v));
-		}
+		},
 	},
 });
 
@@ -39,15 +41,29 @@ class HomeTitle extends React.Component {
 	CutNum() {
 		console.log('-');
 	}
+	onPutOn() {
+		localStorage.setItem('isLoginIn', 'Y');
+	}
+	offPutOn() {
+		localStorage.removeItem('isLoginIn');
+	}
 	componentDidMount() {
-		console.log('shouye')
+		console.log('shouye');
+	}
+	componentWillReceiveProps() {
+		console.log(this.props.testvalue);
+		// console.log(this.props.dataList, '22')
 	}
 	render() {
-		return <div>
+		return <div className="main-container">
 			<h1>home 22 333 title</h1>
 			<h2>{this.props.testvalue}</h2>
 			<button onClick={()=>this.props.fn.onTestAdd(this.props.testvalue)}>+</button>
 			<button onClick={()=>this.props.fn.onTestCut(this.props.testvalue)}>-</button>
+			<br/>
+			<button onClick={this.onPutOn}>允许登陆</button>
+			<br/>
+			<button onClick={this.offPutOn}>退出登陆</button>
 		</div>
 	}
 }

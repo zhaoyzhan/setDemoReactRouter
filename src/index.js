@@ -7,6 +7,8 @@ import {
 import registerServiceWorker from './registerServiceWorker';
 import Router from './route/';
 
+import './css/index.css';
+
 import store from './store/';
 
 ReactDOM.render(
