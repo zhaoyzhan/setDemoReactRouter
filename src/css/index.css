@@ -29,3 +29,15 @@ h1, h2, h3, h4, h5, h6, p, span, i{
 	float: left;
 	margin-left: 40px;
 }
+
+html:-moz-full-screen {
+background: #fff;
+}
+
+html:-webkit-full-screen {
+background: #fff;
+}
+
+html:fullscreen {
+background: #fff;
+}

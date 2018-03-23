@@ -26,7 +26,28 @@
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
+    <script>    
+      document.addEventListener("fullscreenchange", function () {              
+          fullscreenState.innerHTML = (document.fullscreen) ? "" : "not ";  
+      }, false);  
+       
+      document.addEventListener("mozfullscreenchange", function () {  
+           
+          fullscreenState.innerHTML = (document.mozFullScreen) ? "" : "not ";  
+      }, false);  
+     
+      document.addEventListener("webkitfullscreenchange", function () {  
+            
+          fullscreenState.innerHTML = (document.webkitIsFullScreen) ? "" : "not ";  
+      }, false);  
+        
+      document.addEventListener("msfullscreenchange", function () {  
+            
+          fullscreenState.innerHTML = (document.msFullscreenElement) ? "" : "not ";  
+      }, false);  
+    </script>
     <div id="root"></div>
+
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

@@ -1,0 +1,39 @@
+.main-container {
+	position: relative;
+	overflow: auto;
+}
+
+.history-control-btn {
+	position: fixed;
+	right: 20px;
+	top: 100px;
+}
+
+.history-content {
+	width: 1000px;
+	height: 500px;
+	background: #fff;
+	margin: 40px auto;
+}
+.index {
+	text-align: center;
+}
+
+.index li{
+	margin: 10px auto 15px;
+	height: 100px;
+	background: #ececec;
+	width: 400px;
+	a {
+		color: #000;
+		text-decoration: none;
+	}
+}
+
+.change_page {
+	text-align: center;
+	span {
+		cursor: pointer;
+		padding: 0 10px 10px;
+	}
+}
