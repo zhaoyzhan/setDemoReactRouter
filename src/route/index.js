@@ -8,8 +8,13 @@ import {
 import HomeTitle from '../a_container/home/';
 import CarCon from '../a_container/car/';
 import History from '../a_container/history/';
+import Information from '../a_container/information/';
+import SecondRoote from '../a_container/second-route/';
+import SecRoote from '../a_container/second-route/secIndex';
 
 import RootContainer from '../a_container/root/';
+
+import SecondR from '../a_container/second-route/route/';
 
 // const requireAuth = (nextStaten, replace) => {
 // 	if (!localStorage.onEnter) {
@@ -35,8 +40,13 @@ const RouterCon = () => (
 			<div>
 				<RootContainer></RootContainer>
 			</div>
-
-			<Route exact path="/" component={HomeTitle}/>
+			<Route
+			    exact
+			    path="/"
+			    render={()=>(
+					<Redirect to="/home" />
+			    )}
+			 />
 			<Route path="/home" component={HomeTitle}/>
 			<Route 
 				path="/car"  
@@ -50,6 +60,22 @@ const RouterCon = () => (
 			    render={()=> (
 					isLoginIn() ? <Route component={History}/>
 					        : <Redirect to="/home" />
+				)}
+			/>
+			<Route path="/information" component={Information}/>
+			<Route
+				path="/secondroote"
+				render={()=> (
+					<div>
+						<div><SecondR></SecondR></div>
+						<Route exact path="/secondroote"
+							render={()=>(
+								<Redirect to="/secondroote/firstroote"></Redirect>
+							)}
+						></Route>
+						<Route path="/secondroote/firstroote" component={SecondRoote}></Route>
+						<Route path="/secondroote/secondroote" component={SecRoote}></Route>
+					</div>
 				)}
 			/>
 		</div>

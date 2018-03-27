@@ -16,18 +16,13 @@ class RootContainer extends React.Component {
 		this.state = {};
 	}
 
-	componentDidMount() {
-		console.log('daohangye ');
-	}
+	componentDidMount() {}
 
 	render() {
 		return (
 			<div className="fl">
-		          <Link to="/home">主页</Link>
-		          <Link to="/car">购物车</Link>
-		          <Link to="/history">购买记录</Link>
-		          <Link to="/information">个人信息</Link>
-		          <Link to="/secondroote">二级路由</Link>
+		          <Link to="/secondroote/firstroote">第一个路由</Link>
+		          <Link to="/secondroote/secondroote">第二个路由</Link>
 		    </div>
 		);
 	}

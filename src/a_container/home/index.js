@@ -44,14 +44,19 @@ class HomeTitle extends React.Component {
 		console.log('-');
 	}
 	onPutOn() {
-		console.log('2222');
-		$.get('http://localhost:8880/introduce', (res) => {
+		// console.log('2222');
+		$.get('http://localhost:8000/', (res) => {
 			console.log(res, 'qqqq');
 		});
 		// localStorage.setItem('isLoginIn', 'Y');
 	}
 	offPutOn() {
-		localStorage.removeItem('isLoginIn');
+		$.post('http://localhost:8000/postData', {
+			name: 'lisi'
+		}, (res) => {
+			console.log(res, 'qqqq');
+		});
+		// localStorage.removeItem('isLoginIn');
 	}
 	componentDidMount() {
 		console.log('shouye');

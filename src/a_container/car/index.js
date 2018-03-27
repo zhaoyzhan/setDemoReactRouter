@@ -44,6 +44,8 @@ class Car extends React.Component {
 		};
 		this.getData = this.getData.bind(this);
 		this.getList = this.getList.bind(this);
+		this._areaList = this._areaList.bind(this);
+		this._dataList = this._dataList.bind(this);
 	}
 
 	componentWillMount() {
@@ -97,11 +99,11 @@ class Car extends React.Component {
 							list.push(item)
 						});
 						this.setState({
-								areaList: list
-							}, () => {
-								console.log(this.state.areaList, '33')
-							})
-							// dispatch(receiveProducts([1, 2, 3, 4, 5]));
+							areaList: list
+						}, () => {
+							console.log(this.state.areaList, '33')
+						});
+						// dispatch(receiveProducts([1, 2, 3, 4, 5]));
 					})
 					.catch(err => {
 						console.log(err, 'err');
@@ -160,22 +162,34 @@ class Car extends React.Component {
 					<button onClick={()=>this.getData(this.state.showD02)}>点击获取</button>
 				</div>
 				{this.state.showD01 === true ?
-					<div className="car-main">
-						{this.state.areaList[0] ? this.state.areaList.map((product, index) => 
-							<p key={'a' + index}>{product.projectname}</p>
-						) : ''}
-					</div>
+					this._areaList()
 					: ''
 				}
 				{this.state.showD02 === true ?
-					<ul className="car-main-ul">
-						{this.props.dataList[0] ? this.props.dataList.map((item, index) => 
-							<li key={index}>{item.areaName}</li>
-						) : ''}
-					</ul>
+					this._dataList()
 					: ''
 				}
 			</div>
+	}
+
+	_areaList() {
+		return (
+			<div className="car-main">
+				{this.state.areaList[0] ? this.state.areaList.map((product, index) => 
+					<p key={'a' + index}>{product.projectname}</p>
+				) : ''}
+			</div>
+		);
+	}
+
+	_dataList() {
+		return (
+			<ul className="car-main-ul">
+				{this.props.dataList[0] ? this.props.dataList.map((item, index) => 
+					<li key={index}>{item.areaName}</li>
+				) : ''}
+			</ul>
+		);
 	}
 }
 
