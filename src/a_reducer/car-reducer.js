@@ -1,5 +1,5 @@
 //多层赋值
-import update from 'react-addons-update';
+// import update from 'react-addons-update';
 
 const initState = {
 	carvalue: 10,

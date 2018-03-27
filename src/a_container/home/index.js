@@ -1,5 +1,7 @@
 import React from 'react';
 
+import $ from 'jquery';
+
 import {
 	PropTypes as P
 } from 'prop-types';
@@ -42,7 +44,11 @@ class HomeTitle extends React.Component {
 		console.log('-');
 	}
 	onPutOn() {
-		localStorage.setItem('isLoginIn', 'Y');
+		console.log('2222');
+		$.get('http://localhost:8880/introduce', (res) => {
+			console.log(res, 'qqqq');
+		});
+		// localStorage.setItem('isLoginIn', 'Y');
 	}
 	offPutOn() {
 		localStorage.removeItem('isLoginIn');
@@ -56,7 +62,7 @@ class HomeTitle extends React.Component {
 	}
 	render() {
 		return <div className="main-container">
-			<h1>home 22 333 title</h1>
+			<h1>home 22 eee333 title</h1>
 			<h2>{this.props.testvalue}</h2>
 			<button onClick={()=>this.props.fn.onTestAdd(this.props.testvalue)}>+</button>
 			<button onClick={()=>this.props.fn.onTestCut(this.props.testvalue)}>-</button>
@@ -73,16 +79,5 @@ HomeTitle.propTypes = {
 	dispatch: P.func,
 	fn: P.object,
 }
-
-// const HomeT = () => {
-// 	const sayHi = () => {
-// 		alert('12344hi')
-// 	};
-// 	return (
-// 		<div>
-// 			<h1 onClick={sayHi}>hommmm</h1>
-// 		</div>
-// 	);
-// };
 
 export default connect(mapStoreStateToProps, mapDispatches)(HomeTitle);

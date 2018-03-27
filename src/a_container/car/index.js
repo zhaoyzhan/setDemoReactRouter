@@ -93,9 +93,9 @@ class Car extends React.Component {
 					.then(data => {
 						console.log(data.result, '11')
 						let list = []
-						data.result.map((item) => {
+						data.result.map((item, index) => {
 							list.push(item)
-						})
+						});
 						this.setState({
 								areaList: list
 							}, () => {
@@ -159,7 +159,7 @@ class Car extends React.Component {
 					<button onClick={()=>this.getList(this.state.showD01)}>获取资源</button>
 					<button onClick={()=>this.getData(this.state.showD02)}>点击获取</button>
 				</div>
-				{this.state.showD01 == true ?
+				{this.state.showD01 === true ?
 					<div className="car-main">
 						{this.state.areaList[0] ? this.state.areaList.map((product, index) => 
 							<p key={'a' + index}>{product.projectname}</p>
@@ -167,7 +167,7 @@ class Car extends React.Component {
 					</div>
 					: ''
 				}
-				{this.state.showD02 == true ?
+				{this.state.showD02 === true ?
 					<ul className="car-main-ul">
 						{this.props.dataList[0] ? this.props.dataList.map((item, index) => 
 							<li key={index}>{item.areaName}</li>

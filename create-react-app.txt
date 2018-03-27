@@ -1,0 +1,119 @@
+初始化项目
+首先，要先利用create-react-app创建一个react项目，可参考https://github.com/facebookincubator/create-react-app
+
+注：用“[ ]”包裹的都是可自定义的内容，例如：cd [project-name]，实际上可能是cd my-app，也可能是cd my-project。总之“[ ]”包裹的内容，只表示上下文里相互对应的变量。
+
+
+
+npm install -g create-react-app  
+   
+create-react-app [project-name]  
+cd [project-name]  
+
+运行完以上命令就已经处在新建的项目中了，此时运行npm run start和npm run build了。但是，默认所有配置是隐藏起来的，要想自定义配置，需要运行一个命令：
+
+
+npm run eject  
+此时会提示，该命令不可逆，是否继续，输入y，这样所有配置项就都出来了。这时候也可以做一些定制化的配置了，比如：
+修改build后的output位置
+js / css / img等静态资源会默认输出到 build -> static 下面，其配置项在config -> webpack.config.prod.js 里。
+
+js在output属性里，大约第60行 ；
+
+css在开头的cssFilename变量声明，大约第38行；
+
+图片等在module -> rules的loader配置里，大约第143行；
+
+map文件由devtool属性控制，如果不想要map，注释掉就可以，大约第57行；
+manifest.json在ManifestPlugin的配置里，大约294行；
+基础模板在HtmlWebpackPlugin的配置里，不过可以看到，是引的  ‘./paths.js’ 文件，所以要修改 config -> paths.js 里面的 appHtml 属性；
+默认在build时会清空build目录，配置项是scripts -> build.js 里的 fs.emptyDirSync(paths.appBuild); 这一句，注释掉就不会把老文件删掉了（灰度发布的时候可能会用到）；
+
+
+
+不eject其他修改配置的方法
+除了 npm run eject 暴露出所有配置文件外，还有其他办法修改配置，由于本文主题原因不做展开，仅给出相关链。
+
+一个（部分人认为）比较优雅的方法，即引入 react-app-rewired 插件来实现配置覆盖。需要在根目录新建一个 config-overrides.js 文件，想配置啥就写啥（怎么又多出来一种配置。。。），还需要重写下npm start等相关命令，详情点击链接查看。
+
+另一个可参考create-react-app的git主页上推荐的 Adding a CSS Preprocessor (Sass, Less etc.) 例子。大概思路就是先安装一个node环境可编译sass的插件node-sass-chokidar，然后利用npm-run-all同时运行npm start 和 watch-css（监听sass文件的命令）。个人感觉绕了个大圈，还是再议吧。。。
+
+
+react等作为全局变量不打包
+为了利用cdn，我们常会在页面里引用react或其他类似库的script标签，这样在浏览器环境里就有了相应的全局变量，同时减少了js的体积。下面以react为例。
+
+首先在config -> webpack.config.prod.js 的配置里加入如下代码：
+
+module.exports = {  
+  ...  
+  externals: {  
+    'react': 'React',  
+    'react-dom': 'ReactDOM'  
+  },  
+  ...  
+}  
+key对应的是库的名字，value对应的是全局变量的名字。这里要注意，全局变量的名字要与代码中import的名字一致，要保证规范。
+另外，此处要修改下 html-webpack-plugin 插件配置的模板文件，因为需要加入全局变量，所以加入相应的script即可。以 public -> index.html 为例：
+
+
+<!DOCTYPE html>  
+<html lang="en">  
+  <head>  
+    <meta charset="utf-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
+    <meta name="theme-color" content="#000000">  
+    <!-- 
+      code here 
+    -->  
+  </head>  
+  <body>  
+    <noscript>  
+      You need to enable JavaScript to run this app.  
+    </noscript>  
+    <div id="root"></div>  
+    <!-- 
+      code here 
+    -->  
+<!-- 新插入的两个js -->  
+    <script src="http://st01.chrstatic.com/themes/chr-cdn/react/v0.14.8/react.min.js"></script>  
+    <script src="http://st01.chrstatic.com/themes/chr-cdn/react/v0.14.8/react-dom.min.js"></script>  
+  </body>  
+</html>  
+问：既然浏览器里面都有了全局变量，如window.React，那么代码里面其实就不用 import React from 'react' 了，更进一步，如果连react都不用引了，那么设置externals又有什么用呢（这个地方好好缕缕，是不是这个理）？
+
+答：如果按照上面所说，去掉import和external，build出来的文件是可以顺利的在浏览器端运行的。但是如果开发的时候是起的server，那么server端就没法分析引用了，也就没法做到热更新了，另外，对于前后端同构来说，服务端也是找不到依赖的。所以，如果你是开着静态文件的监听，并且手动刷新浏览器的话，不import和external理论上是没问题的。
+
+
+
+
+安装sass或less（以sass为例）
+
+npm install sass-loader node-sass --save-dev  
+或  
+npm install less-loader less --save-dev  
+安装后修改config -> webpack.config.dev.js 和 webpack.config.prod.js，分别在css的loader配置里面修改两处：
+一是 test: /\.css$/ 增加scss和sass；二是use里面最后再加个loader，直接加 "sass-loader" 就可以了，也不用配置别的了（less同）。
+
+
+//test: /\.css$/  
+test: /\.(css|scss|sass)$/  
+...  
+use:[  
+  {  
+  ...  
+  },  
+  "sass-loader"  
+]  
+
+添加ant-design
+安装antd及按需加载的插件babel-plugin-import，参考https://ant.design/docs/react/introduce-cn
+
+[plain] view plain copy
+npm install antd babel-plugin-import --save-dev  
+在config -> webpack.config.dev.js 和 webpack.config.prod.js 里（或者 .babelrc 文件）的babel-loader的options配置里，加入如下代码：
+
+[javascript] view plain copy
+plugins: [  
+  ['import', { libraryName: 'antd', style: 'css' }]  // `style: true` 会加载 less 文件  
+]  
+如果启用了 style:true 那就必须是装less了

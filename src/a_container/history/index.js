@@ -8,12 +8,6 @@ import '../../css/history/index.css';
 
 import ListPage from '../../a_content/history-content/history-paging';
 
-// const History = () => (
-// 	<div className="main-container">
-// 		<h1>History</h1>
-// 	</div>
-// )
-
 class History extends React.Component {
 	constructor(props) {
 		super(props);
@@ -55,26 +49,7 @@ class History extends React.Component {
 		}
 	}
 
-	componentWillMount() {
-		// document.addEventListener("fullscreenchange", function() {
-		// 	fullscreenState.innerHTML = (document.fullscreen) ? "" : "not ";
-		// }, false);
-
-		// document.addEventListener("mozfullscreenchange", function() {
-
-		// 	fullscreenState.innerHTML = (document.mozFullScreen) ? "" : "not ";
-		// }, false);
-
-		// document.addEventListener("webkitfullscreenchange", function() {
-
-		// 	fullscreenState.innerHTML = (document.webkitIsFullScreen) ? "" : "not ";
-		// }, false);
-
-		// document.addEventListener("msfullscreenchange", function() {
-
-		// 	fullscreenState.innerHTML = (document.msFullscreenElement) ? "" : "not ";
-		// }, false);
-	}
+	componentWillMount() {}
 
 	componentDidMount() {}
 
