@@ -102,5 +102,6 @@
     "less": "^3.0.1",
     "less-loader": "^4.1.0",
     "react-router-dom": "^4.2.2"
-  }
+  },
+  "homepage": "."
 }

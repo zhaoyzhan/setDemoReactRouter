@@ -83,7 +83,7 @@ class Information extends React.Component {
 				name: deleName
 			}, (res) => {
 				if (res.code && res.code === 200) {
-					alert('删除成功');
+					alert(res.message);
 					document.getElementsByClassName('deleName')[0].value = '';
 				}
 			})

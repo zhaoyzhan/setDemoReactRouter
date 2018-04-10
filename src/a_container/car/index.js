@@ -93,7 +93,7 @@ class Car extends React.Component {
 				})
 				.then(response => response.json()
 					.then(data => {
-						console.log(data.result, '11')
+						// console.log(data.result, '11')
 						let list = []
 						data.result.map((item, index) => {
 							list.push(item)
@@ -101,7 +101,7 @@ class Car extends React.Component {
 						this.setState({
 							areaList: list
 						}, () => {
-							console.log(this.state.areaList, '33')
+							// console.log(this.state.areaList, '33')
 						});
 						// dispatch(receiveProducts([1, 2, 3, 4, 5]));
 					})
